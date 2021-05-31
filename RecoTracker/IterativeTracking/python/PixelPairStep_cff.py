@@ -349,6 +349,8 @@ highBetaStar_2018.toModify(pixelPairStep,qualityCuts = [-0.95,0.0,0.3])
 pp_on_AA_2018.toModify(pixelPairStep, qualityCuts = [-0.2, 0.0, 0.98])
 fastSim.toModify(pixelPairStep, vertices = "firstStepPrimaryVerticesBeforeMixing")
 
+
+
 # For LowPU and Phase2PU140
 import RecoTracker.IterativeTracking.LowPtTripletStep_cff
 import RecoTracker.FinalTrackSelectors.multiTrackSelector_cfi
@@ -418,7 +420,7 @@ trackingPhase2PU140.toModify(pixelPairStepSelector,
         ), #end of vpset
     vertices = "firstStepPrimaryVertices"
 ) #end of clone
-
+fastSim.toModify(pixelPairStepSelector, vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 # Final sequence
 PixelPairStepTask = cms.Task(pixelPairStepClusters,
@@ -456,6 +458,6 @@ fastSim.toReplaceWith(PixelPairStepTask,
                                    ,pixelPairStepSeeds
                                    ,pixelPairStepTrackCandidates
                                    ,pixelPairStepTracks
-                                   ,pixelPairStep 
+                                   ,pixelPairStepSelector 
                                    )
 )

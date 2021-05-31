@@ -115,7 +115,7 @@ _fastSim_initialStepSeeds = FastSimulation.Tracking.TrajectorySeedProducer_cfi.t
 )
 _fastSim_initialStepSeeds.seedFinderSelector.pixelTripletGeneratorFactory.SeedComparitorPSet.ComponentName = "none"
 #new for phase1
-trackingPhase1.toModify(_fastSim_initialStepSeeds, seedFinderSelector = dict(
+(trackingPhase1|trackingPhase2PU140).toModify(_fastSim_initialStepSeeds, seedFinderSelector = dict(
         pixelTripletGeneratorFactory = None,
         CAHitQuadrupletGeneratorFactory = _hitSetProducerToFactoryPSet(initialStepHitQuadruplets).clone(SeedComparitorPSet = dict(ComponentName = "none")),
         #new parameters required for phase1 seeding
@@ -132,6 +132,24 @@ trackingPhase1.toModify(_fastSim_initialStepSeeds, seedFinderSelector = dict(
 )
 
 fastSim.toReplaceWith(initialStepSeeds,_fastSim_initialStepSeeds)
+
+#trackingPhase2PU140.toModify(_fastSim_initialStepSeeds, seedFinderSelector = dict(
+#        pixelTripletGeneratorFactory = None,
+#        CAHitQuadrupletGeneratorFactory = _hitSetProducerToFactoryPSet(initialStepHitQuadruplets).clone(SeedComparitorPSet = dict(ComponentName = "none")),
+        #new parameters required for phase2 seeding
+#        BPix = dict(
+#            TTRHBuilder = 'WithoutRefit',
+#            HitProducer = 'TrackingRecHitProducer',
+#            ),
+#        FPix = dict(
+#            TTRHBuilder = 'WithoutRefit',
+#            HitProducer = 'TrackingRecHitProducer',
+#            ),
+#        layerPairs = initialStepHitDoublets.layerPairs.value()
+#        )
+#)
+
+#fastSim.toReplaceWith(initialStepSeeds,_fastSim_initialStepSeeds)
 
 
 # building
@@ -327,6 +345,8 @@ pp_on_AA_2018.toModify(initialStep,
         qualityCuts = [-0.9, -0.5, 0.2],
 )
 
+
+
 # For LowPU and Phase2PU140
 import RecoTracker.FinalTrackSelectors.multiTrackSelector_cfi
 initialStepSelector = RecoTracker.FinalTrackSelectors.multiTrackSelector_cfi.multiTrackSelector.clone(
@@ -394,7 +414,7 @@ trackingPhase2PU140.toModify(initialStepSelector,
         ), #end of vpset
 ) #end of clone
 
-
+fastSim.toModify(initialStepSelector,vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 # Final sequence
 InitialStepTask = cms.Task(initialStepSeedLayers,
@@ -434,7 +454,7 @@ _InitialStepTask_fastSim = cms.Task(initialStepTrackingRegions
                            ,initialStepTrackCandidates
                            ,initialStepTracks
                            ,firstStepPrimaryVerticesBeforeMixing
-                           ,initialStepClassifier1,initialStepClassifier2,initialStepClassifier3
-                           ,initialStep
+                           #,initialStepClassifier1,initialStepClassifier2,initialStepClassifier3
+                           ,initialStepSelector
                            )
 fastSim.toReplaceWith(InitialStepTask, _InitialStepTask_fastSim)

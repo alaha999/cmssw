@@ -269,6 +269,8 @@ pp_on_AA_2018.toModify(highPtTripletStep,
 
 fastSim.toModify(highPtTripletStep,vertices = "firstStepPrimaryVerticesBeforeMixing")
 
+
+
 # For Phase2PU140
 import RecoTracker.FinalTrackSelectors.multiTrackSelector_cfi
 highPtTripletStepSelector = RecoTracker.FinalTrackSelectors.multiTrackSelector_cfi.multiTrackSelector.clone(
@@ -318,6 +320,8 @@ highPtTripletStepSelector = RecoTracker.FinalTrackSelectors.multiTrackSelector_c
     ] #end of vpset
 ) #end of clone
 
+fastSim.toModify(highPtTripletStepSelector,vertices = "firstStepPrimaryVerticesBeforeMixing")
+
 # Final sequence
 HighPtTripletStepTask = cms.Task(highPtTripletStepClusters,
                                  highPtTripletStepSeedLayers,
@@ -344,5 +348,5 @@ fastSim.toReplaceWith(HighPtTripletStepTask,
                                ,highPtTripletStepSeeds
                                ,highPtTripletStepTrackCandidates
                                ,highPtTripletStepTracks
-                               ,highPtTripletStep
+                               ,highPtTripletStepSelector
                                ) )

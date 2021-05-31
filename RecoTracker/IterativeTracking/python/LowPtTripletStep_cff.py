@@ -157,6 +157,25 @@ trackingPhase1.toModify(_fastSim_lowPtTripletStepSeeds, seedFinderSelector = dic
 )
 fastSim.toReplaceWith(lowPtTripletStepSeeds,_fastSim_lowPtTripletStepSeeds)
 
+
+#new for phase2
+trackingPhase2PU140.toModify(_fastSim_lowPtTripletStepSeeds, seedFinderSelector = dict(
+        pixelTripletGeneratorFactory = None,
+        CAHitTripletGeneratorFactory = _hitSetProducerToFactoryPSet(lowPtTripletStepHitTriplets).clone(SeedComparitorPSet = dict(ComponentName = "none")),
+        #new parameters required for phase2 seeding
+        BPix = dict(
+            TTRHBuilder = 'WithoutRefit',
+            HitProducer = 'TrackingRecHitProducer',
+            ),
+        FPix = dict(
+            TTRHBuilder = 'WithoutRefit',
+            HitProducer = 'TrackingRecHitProducer',
+            ),
+        layerPairs = lowPtTripletStepHitDoublets.layerPairs.value()
+        )
+)
+fastSim.toReplaceWith(lowPtTripletStepSeeds,_fastSim_lowPtTripletStepSeeds)
+
 # QUALITY CUTS DURING TRACK BUILDING
 import TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff as _TrajectoryFilter_cff
 _lowPtTripletStepStandardTrajectoryFilterBase = _TrajectoryFilter_cff.CkfBaseTrajectoryFilter_block.clone(
@@ -364,7 +383,7 @@ trackingPhase2PU140.toModify(lowPtTripletStepSelector,
         ), #end of vpset
 ) #end of clone
 
-
+fastSim.toModify(lowPtTripletStepSelector, vertices = "firstStepPrimaryVerticesBeforeMixing")
 
 # Final sequence
 LowPtTripletStepTask = cms.Task(lowPtTripletStepClusters,
@@ -392,5 +411,5 @@ fastSim.toReplaceWith(LowPtTripletStepTask,
                                    ,lowPtTripletStepSeeds
                                    ,lowPtTripletStepTrackCandidates
                                    ,lowPtTripletStepTracks  
-                                   ,lowPtTripletStep   
+                                   ,lowPtTripletStepSelector   
                                    ))
