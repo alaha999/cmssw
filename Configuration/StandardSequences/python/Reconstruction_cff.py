@@ -60,7 +60,8 @@ from RecoEgamma.EgammaPhotonProducers.conversionOpenTrackSequence_cff import *
 from RecoEgamma.EgammaPhotonProducers.gsfTracksOpenConversionSequence_cff import *
 
 
-localrecoTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,muonlocalrecoTask,calolocalrecoTask,castorreco)
+#localrecoTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,muonlocalrecoTask,calolocalrecoTask,castorreco)
+localrecoTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,calolocalrecoTask,castorreco) #ignore local muon reconstruction
 localreco = cms.Sequence(localrecoTask)
 localreco_HcalNZSTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,muonlocalrecoTask,calolocalrecoTaskNZS,castorreco)
 localreco_HcalNZS = cms.Sequence(localreco_HcalNZSTask)
@@ -95,7 +96,6 @@ _fastSim_localrecoTask = localrecoTask.copyAndExclude([
     castorreco,
     totemRPLocalReconstructionTask,totemTimingLocalReconstructionTask,ctppsDiamondLocalReconstructionTask,
     ctppsLocalTrackLiteProducer,ctppsPixelLocalReconstructionTask,ctppsProtons,
-    trackerlocalrecoTask
 ])
 fastSim.toReplaceWith(localrecoTask, _fastSim_localrecoTask)
 

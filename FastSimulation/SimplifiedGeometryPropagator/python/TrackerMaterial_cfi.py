@@ -297,6 +297,7 @@ TrackerMaterialBlock = cms.PSet(
                 activeLayer = cms.untracked.string("FPix10"),
                 interactionModels = _trackerMaterialInteractionModels
             ),
+ 
             #TEDD4/TID4
             cms.PSet(
                 limits = cms.untracked.vdouble(33.18, 37.0, 40.0, 41.0, 46.0, 109.5),
@@ -313,18 +314,26 @@ TrackerMaterialBlock = cms.PSet(
             ),
             #FPix12
             cms.PSet(
+                #z = cms.untracked.double(265.99),
                 limits = cms.untracked.vdouble(6.03, 25.598),
                 thickness = cms.untracked.vdouble(0.058),
                 activeLayer = cms.untracked.string("FPix12"),
                 interactionModels = _trackerMaterialInteractionModels
             ),
-            #TEDD5/TID5
+            # TEDD5/TID5
             cms.PSet(
                 limits = cms.untracked.vdouble(33.18, 37.0, 40.0, 41.0, 46.0, 109.5),
                 thickness = cms.untracked.vdouble(0.125, 0.030, 0.050, 0.070, 0.050),
                 activeLayer = cms.untracked.string("TID5"),
                 interactionModels = _trackerMaterialInteractionModels
             ),
+            #FPix12
+#            cms.PSet(
+#                limits = cms.untracked.vdouble(6.03, 25.598),
+#                thickness = cms.untracked.vdouble(0.058),
+#                activeLayer = cms.untracked.string("FPix12"),
+#                interactionModels = _trackerMaterialInteractionModels
+#            ),
 
             ########### Pixel Endcap outside cables ###########
             #PIXBOut6
@@ -468,7 +477,7 @@ TrackerMaterialBlock = cms.PSet(
 #            ########### Tracker Endcaps Outside Cables and walls (endcaps) ###########
 #            #TEOut
             cms.PSet(
-                z = cms.untracked.double(300.0),
+                z = cms.untracked.double(303.0),
                 limits = cms.untracked.vdouble(4.42, 4.65, 4.84, 7.37, 10.99, 14.70, 16.24, 22.00, 28.50, 31.50, 36.0, 120.0),
                 thickness = cms.untracked.vdouble(3.935, 0.483, 0.127, 0.089, 0.069, 0.124, 1.47, 0.924, 0.693, 0.294, 0.336),
                 interactionModels = _trackerMaterialInteractionModels

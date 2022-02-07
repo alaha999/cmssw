@@ -70,11 +70,11 @@ void HGCalRecHitProducer::produce(edm::Event& evt, const edm::EventSetup& es) {
   // collection of Uncalibrated rechits to put in the event(first try with EE part)
   // proxy so that eeUncalibratedRecHitCollection is not empty and getbyToken method works
   // HGCeeRecHitCollection as proxy of HGCeeUncalibratedRecHitCollection: otherwise gives 'not defined in scope error'
-  auto eeUncalibRecHits = std::make_unique<HGCeeRecHitCollection>(); 
+  //auto eeUncalibRecHits = std::make_unique<HGCeeRecHitCollection>(); 
   //auto hefUncalibRecHits = std::make_unique<HGChefRecHitCollection>();
   //auto hebUncalibRecHits = std::make_unique<HGChebRecHitCollection>();
   // put the collection of uncalibrated recunstructed hits in the event
-  evt.put(std::move(eeUncalibRecHits), eeUncalibratedRechitCollection_);
+  //evt.put(std::move(eeUncalibRecHits), HGCeeUncalibratedRechitCollection);
   //evt.put(std::move(hefUncalibRecHits), hefRechitCollection_);
   //evt.put(std::move(hebUncalibRecHits), hebRechitCollection_);
   
