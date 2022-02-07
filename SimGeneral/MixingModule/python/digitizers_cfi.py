@@ -108,6 +108,8 @@ from Configuration.ProcessModifiers.run3_ecalclustering_cff import run3_ecalclus
 run3_ecalclustering.toModify( theDigitizersValid, 
                               calotruth = cms.PSet( caloParticles ) )
 
+(fastSim & phase2_hgcal).toModify(theDigitizersValid, calotruth = None)
+
 phase2_timing.toModify( theDigitizersValid.mergedtruth,
                         createInitialVertexCollection = cms.bool(True) )
 

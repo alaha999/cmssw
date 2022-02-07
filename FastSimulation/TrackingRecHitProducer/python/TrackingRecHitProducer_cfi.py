@@ -27,7 +27,7 @@ from Configuration.Eras.Modifier_phase2_tracker_cff import phase2_tracker
 phase2_tracker.toModify(fastTrackerRecHits, plugins = pixelPluginsPhase2)
 
 # Configure strip tracker Gaussian-smearing plugins:
-trackerStripGaussianResolutions={
+trackerStripGaussianResolutions_phase1={
     "TIB": {
         1: cms.double(0.00195),
         2: cms.double(0.00191),
@@ -59,6 +59,25 @@ trackerStripGaussianResolutions={
         9: cms.double(0.00432),
     }
 }
+
+trackerStripGaussianResolutions={
+    "TID": {
+        1: cms.double(0.00262),
+        2: cms.double(0.00354),
+        3: cms.double(0.00391),
+        4: cms.double(0.00346),
+        5: cms.double(0.00378),
+    },
+    "TOB": {
+        1: cms.double(0.09),
+        2: cms.double(0.09),
+        3: cms.double(0.09),
+        4: cms.double(0.009),
+        5: cms.double(0.09),
+        6: cms.double(0.9),
+    }
+}
+#phase2_tracker.toModify(trackerStripGaussianResolutions,trackerStripGaussianResolutions_phase2)
 
 for subdetId,trackerLayers in trackerStripGaussianResolutions.items():
     for trackerLayer, resolutionX in trackerLayers.items():

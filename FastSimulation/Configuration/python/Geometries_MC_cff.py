@@ -4,5 +4,5 @@ from FastSimulation.Configuration.Geometries_cff import *
 
 # Apply Tracker and Muon misalignment
 misalignedTrackerGeometry.applyAlignment = False
-misalignedDTGeometry.applyAlignment = True
-misalignedCSCGeometry.applyAlignment = True
+misalignedDTGeometry.applyAlignment = False
+misalignedCSCGeometry.applyAlignment = False
