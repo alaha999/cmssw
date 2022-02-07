@@ -10,7 +10,8 @@
 #include <TH1F.h>
 #include <cctype>
 #include <memory>
-
+//#include <iostream>
+//using namespace std;
 fastsim::SimplifiedGeometryFactory::SimplifiedGeometryFactory(
     const GeometricSearchTracker *geometricSearchTracker,
     const MagneticField &magneticField,
@@ -26,7 +27,12 @@ fastsim::SimplifiedGeometryFactory::SimplifiedGeometryFactory(
   barrelDetLayersMap_["BPix"] = &geometricSearchTracker_->pixelBarrelLayers();
   barrelDetLayersMap_["TIB"] = &geometricSearchTracker_->tibLayers();
   barrelDetLayersMap_["TOB"] = &geometricSearchTracker_->tobLayers();
-
+  
+  // Print Out Phase 1 pixel layers information
+  //  std::cout<<"P2PXB/phase 1 pixel layers size="<<geometricSearchTracker_->pixelBarrelLayers().size()<<std::endl;
+  //std::cout<<"P2OTB/TOB layers phase 1 size="<<geometricSearchTracker_->tobLayers().size()<<std::endl;
+  //std::cout<<"Tib layers phase 1 size="<<geometricSearchTracker_->tibLayers().size()<<std::endl;
+  
   // naming convention for forward DetLayer lists
   forwardDetLayersMap_["negFPix"] = &geometricSearchTracker_->negPixelForwardLayers();
   forwardDetLayersMap_["posFPix"] = &geometricSearchTracker_->posPixelForwardLayers();
@@ -34,7 +40,14 @@ fastsim::SimplifiedGeometryFactory::SimplifiedGeometryFactory(
   forwardDetLayersMap_["posTID"] = &geometricSearchTracker_->posTidLayers();
   forwardDetLayersMap_["negTEC"] = &geometricSearchTracker_->negTecLayers();
   forwardDetLayersMap_["posTEC"] = &geometricSearchTracker_->posTecLayers();
+  
+  // Print Out Phase 2 Layer information
+  std::cout<<"P2PXEC/ pixel forward Phase 1 size="<<geometricSearchTracker_->posPixelForwardLayers().size()<<std::endl;
+  std::cout<<"P2OTEC/ TID phase 1 layers size="<<geometricSearchTracker_->posTidLayers().size()<<std::endl;
+  //std::cout<<"TEDD layer position="<<geometricSearchTracker_->posTidLayers().zmax()<<std::endl;
+  std::cout<<"TEC layers phase 1="<<geometricSearchTracker_->posTecLayers().size()<<std::endl;  
 }
+
 
 std::unique_ptr<fastsim::BarrelSimplifiedGeometry> fastsim::SimplifiedGeometryFactory::createBarrelSimplifiedGeometry(
     const edm::ParameterSet &cfg) const {
@@ -96,8 +109,10 @@ std::unique_ptr<fastsim::SimplifiedGeometry> fastsim::SimplifiedGeometryFactory:
   else if (detLayer) {
     if (isForward) {
       position = static_cast<ForwardDetLayer const *>(detLayer)->surface().position().z();
+      std::cout<<"Forward Layer Z position="<<position<<std::endl;
     } else {
       position = static_cast<BarrelDetLayer const *>(detLayer)->specificSurface().radius();
+      std::cout<<"Barrel Layer Radius="<<position<<std::endl;
     }
   }
   // then throw error
