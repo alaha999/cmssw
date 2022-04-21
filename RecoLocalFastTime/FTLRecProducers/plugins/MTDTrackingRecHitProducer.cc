@@ -90,6 +90,12 @@ void MTDTrackingRecHitProducer::produce(edm::Event& evt, const edm::EventSetup& 
 //!  and make a RecHit to store the result.
 //---------------------------------------------------------------------------
 void MTDTrackingRecHitProducer::run(edm::Handle<FTLClusterCollection> inputHandle, MTDTrackingDetSetVector& output) {
+  
+ if(!inputHandle.isValid()){
+   edm::LogWarning("MTDReco") << "MTDTrackingRecHitProducer: Invalid collection";    
+   //   continue;
+ }
+ 
   const edmNew::DetSetVector<FTLCluster>& input = *inputHandle;
   edmNew::DetSetVector<FTLCluster>::const_iterator DSViter = input.begin();
 

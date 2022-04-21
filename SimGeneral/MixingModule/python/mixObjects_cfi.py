@@ -294,3 +294,8 @@ phase2_timing_layer.toModify( theMixObjects,
         crossingFrames = theMixObjects.mixSH.crossingFrames + [ 'FastTimerHitsBarrel','FastTimerHitsEndcap' ]
     )
 )
+
+fastSim.toModify(mixSimHits,
+    input = ["fastSimProducer:FastTimerHitsBarrel"],
+    subdets = ['FastTimerHitsBarrel']
+)

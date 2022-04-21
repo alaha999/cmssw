@@ -100,7 +100,8 @@ multiTrackValidator = DQMEDAnalyzer(
     ### do resolution plots only for these labels (or all if empty)
     doResolutionPlotsForLabels = cms.VInputTag(),
 
-    cores = cms.InputTag("highPtJetsForTrk"), #ak4CaloJets with pt>1 TeV
+    #cores = cms.InputTag("highPtJetsForTrk"), #ak4CaloJets with pt>1 TeV
+    cores = cms.InputTag(""),
 )
 
 from Configuration.Eras.Modifier_fastSim_cff import fastSim

@@ -17,9 +17,11 @@ from Configuration.Eras.Modifier_phase2_timing_layer_cff import phase2_timing_la
 from Configuration.Eras.Modifier_phase2_trigger_cff import phase2_trigger
 from Configuration.Eras.Modifier_run3_GEM_cff import run3_GEM
 
-Phase2 = cms.ModifierChain(Run3.copyAndExclude([phase1Pixel,trackingPhase1,run3_GEM]), phase2_common, phase2_tracker, trackingPhase2PU140, phase2_ecal, phase2_hcal, phase2_hgcal,phase2_muon,phase2_GEM,hcalHardcodeConditions, phase2_timing, phase2_timing_layer, phase2_trigger)
+#Phase2 = cms.ModifierChain(Run3.copyAndExclude([phase1Pixel,trackingPhase1,run3_GEM]), phase2_common, phase2_tracker, trackingPhase2PU140, phase2_ecal, phase2_hcal, phase2_hgcal,hcalHardcodeConditions,phase2_muon,phase2_GEM, phase2_timing, phase2_timing_layer, phase2_trigger)
 
-#Phase2 = cms.ModifierChain(Run3.copyAndExclude([phase1Pixel,trackingPhase1,run3_GEM]), phase2_common, phase2_tracker, trackingPhase2PU140, phase2_ecal, phase2_hcal, phase2_hgcal,phase2_GEM,hcalHardcodeConditions, phase2_timing, phase2_timing_layer, phase2_trigger)
+#Phase2 = cms.ModifierChain(Run3.copyAndExclude([phase1Pixel,trackingPhase1,run3_GEM]), phase2_common, phase2_tracker, trackingPhase2PU140, phase2_ecal, phase2_hcal, phase2_hgcal,hcalHardcodeConditions,phase2_trigger)
+
+Phase2 = cms.ModifierChain(Run3.copyAndExclude([phase1Pixel,trackingPhase1,run3_GEM]), phase2_common, phase2_tracker, trackingPhase2PU140, phase2_ecal, phase2_hcal, phase2_hgcal,hcalHardcodeConditions, phase2_timing, phase2_timing_layer)#, phase2_trigger)
 
 #Phase2 = cms.ModifierChain(Run3.copyAndExclude([phase1Pixel,trackingPhase1]), phase2_common, phase2_tracker, trackingPhase2PU140, phase2_ecal, phase2_hcal, phase2_hgcal,hcalHardcodeConditions,phase2_timing, phase2_timing_layer, phase2_trigger)
 #removed phase2_hgcal:Not Implemented in FastSim yet
