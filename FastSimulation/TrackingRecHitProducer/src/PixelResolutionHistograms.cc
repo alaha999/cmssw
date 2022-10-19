@@ -275,6 +275,7 @@ PixelResolutionHistograms::PixelResolutionHistograms(std::string filename,
       for (int jj = 0; jj < cotalphaBins_; jj++) {
         for (int kk = 0; kk < qbins_; kk++) {
           //
+	  std::cout<<"pixelInfo, detType="<<detType_<<"|cotbetaBins="<<ii+1<<"|cotalphaBins="<<jj+1<<"|qBins="<<kk+1<<std::endl;
           sprintf(histo, "hx%d1%02d%d%d", detType_, ii + 1, jj + 1, kk + 1);  //information of bits of histogram names
           //--- First bit 1/0 barrel/forward, second 1/0 multi/single, cotbeta, cotalpha, qbins
           sprintf(title,
