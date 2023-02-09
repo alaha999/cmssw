@@ -96,7 +96,7 @@ _fastSim_localrecoTask = localrecoTask.copyAndExclude([
     castorreco,
     totemRPLocalReconstructionTask,totemTimingLocalReconstructionTask,ctppsDiamondLocalReconstructionTask,
     ctppsLocalTrackLiteProducer,ctppsPixelLocalReconstructionTask,ctppsProtons,
-    trackerlocalrecoTask
+    trackerlocalrecoTask,fastTimingLocalRecoTask
 ])
 fastSim.toReplaceWith(localrecoTask, _fastSim_localrecoTask)
 
@@ -121,14 +121,17 @@ trackingLowPU.toReplaceWith(globalreco_trackingTask, _globalreco_tracking_LowPUT
 ##########################################
 # offlineBeamSpot is reconstructed before mixing in fastSim
 ##########################################
-_fastSim_globalreco_trackingTask = globalreco_trackingTask.copyAndExclude([offlineBeamSpot,MeasurementTrackerEventPreSplitting,siPixelClusterShapeCachePreSplitting])
-fastSim.toReplaceWith(globalreco_trackingTask,_fastSim_globalreco_trackingTask)
+#_fastSim_globalreco_trackingTask = globalreco_trackingTask.copyAndExclude([offlineBeamSpot,MeasurementTrackerEventPreSplitting,siPixelClusterShapeCachePreSplitting])
+#fastSim.toReplaceWith(globalreco_trackingTask,_fastSim_globalreco_trackingTask)
 
 _phase2_timing_layer_globalreco_trackingTask = globalreco_trackingTask.copy()
 _phase2_timing_layer_globalreco_trackingTask.add(fastTimingGlobalRecoTask)
 phase2_timing_layer.toReplaceWith(globalreco_trackingTask,_phase2_timing_layer_globalreco_trackingTask)
 
-#fastSim.toReplaceWith(globalreco_trackingTask,_fastSim_globalreco_trackingTask)
+_fastSim_globalreco_trackingTask = globalreco_trackingTask.copyAndExclude([offlineBeamSpot,MeasurementTrackerEventPreSplitting,siPixelClusterShapeCachePreSplitting,trackExtenderWithMTD,mtdTrackQualityMVA])
+#_fastSim_globalreco_trackingTask = globalreco_trackingTask.copyAndExclude([offlineBeamSpot,MeasurementTrackerEventPreSplitting,siPixelClusterShapeCachePreSplitting]) # May be we can't exclude trackExtenderWithMTD
+
+fastSim.toReplaceWith(globalreco_trackingTask,_fastSim_globalreco_trackingTask)
 
 globalrecoTask = cms.Task(globalreco_trackingTask,
                           particleFlowClusterTask,
@@ -210,7 +213,8 @@ _modulesInReconstruction = list()
 reconstructionTask.visit(cms.ModuleNamesFromGlobalsVisitor(globals(),_modulesInReconstruction))
 logErrorHarvester.includeModules = cms.untracked.vstring(set(_modulesInReconstruction))
 
-reconstruction_trackingOnlyTask = cms.Task(localrecoTask,globalreco_trackingTask)
+#reconstruction_trackingOnlyTask = cms.Task(localrecoTask,globalreco_trackingTask)
+reconstruction_trackingOnlyTask = cms.Task(_fastSim_localrecoTask,_fastSim_globalreco_trackingTask)
 #calo parts removed as long as tracking is not running jetCore in phase2
 trackingPhase2PU140.toReplaceWith(reconstruction_trackingOnlyTask,
                                   reconstruction_trackingOnlyTask.copyAndExclude([hgcalLocalRecoTask,castorreco]))

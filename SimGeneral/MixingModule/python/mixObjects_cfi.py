@@ -295,7 +295,7 @@ phase2_timing_layer.toModify( theMixObjects,
     )
 )
 
-fastSim.toModify(mixSimHits,
-    input = ["fastSimProducer:FastTimerHitsBarrel"],
-    subdets = ['FastTimerHitsBarrel']
-)
+#fastSim.toModify(mixSimHits,
+#    input = ["fastSimProducer:FastTimerHitsBarrel"],
+#    subdets = ['FastTimerHitsBarrel']
+#)

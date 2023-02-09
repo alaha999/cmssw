@@ -52,17 +52,30 @@ _iterTracking_Phase1 = cms.Sequence(
     +TobTecStep
     +JetCoreRegionalStep
     +generalTracksBeforeMixing)
-
+"""
 _iterations_trackingPhase2PU140 = cms.Sequence(
     InitialStep
     +HighPtTripletStep
     +LowPtQuadStep
     +LowPtTripletStep
     +DetachedQuadStep
+    +DetachedTripletStep
     +PixelPairStep
     #+PixelLessStep
     #+TobTecStep
+    #+JetCoreRegionalStep
+    +generalTracksBeforeMixing)
+"""
+_iterations_trackingPhase2PU140 = cms.Sequence(
+    InitialStep
+    +HighPtTripletStep
+    +LowPtQuadStep
+    +LowPtTripletStep
+    +LowPtTripletStep
+    +DetachedQuadStep
+    +PixelPairStep
     +generalTracksBeforeMixing)
 
 trackingPhase1.toReplaceWith(iterTracking, _iterTracking_Phase1)
 trackingPhase2PU140.toReplaceWith(iterTracking,_iterations_trackingPhase2PU140)
+#trackingPhase2PU140.toReplaceWith(iterTracking,_iterTracking_Phase1)

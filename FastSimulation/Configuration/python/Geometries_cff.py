@@ -7,8 +7,8 @@ import FWCore.ParameterSet.Config as cms
 # To use the "full" CMS geometry, comment the prevous line, and uncomment the following one:
 #####from Configuration.StandardSequences.Geometry_cff import *
 #from Configuration.StandardSequences.GeometryDB_cff import *
-from Configuration.Geometry.GeometryExtended2026D49_cff import *
-from Configuration.Geometry.GeometryExtended2026D49Reco_cff import *
+from Configuration.Geometry.GeometryExtended2026D41_cff import *
+from Configuration.Geometry.GeometryExtended2026D41Reco_cff import *
 #from Configuration.StandardSequences.GeometryDB_cff import *
 
 # The tracker geometry left-over (for aligned/misaligned geometry)
