@@ -34,4 +34,6 @@
 <use name="boost"/>
 <use name="clhep"/>
 <use name="gsl"/>
+<use name="PhysicsTools/UtilAlgos"/>
+<use name="FWCore/ServiceRegistry"/>
 <flags EDM_PLUGIN="1"/>

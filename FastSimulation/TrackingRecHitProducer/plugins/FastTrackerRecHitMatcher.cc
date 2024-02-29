@@ -27,6 +27,13 @@
 #include "SimDataFormats/TrackingHit/interface/PSimHit.h"
 #include "SimDataFormats/TrackingHit/interface/PSimHitContainer.h"
 
+//plots
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "TH2.h"
+#include <TH1D.h>
+#include <TH2D.h>
+
 class FastTrackerRecHitMatcher : public edm::stream::EDProducer<> {
 public:
   explicit FastTrackerRecHitMatcher(const edm::ParameterSet&);
@@ -71,6 +78,7 @@ private:
   // ----------member data ---------------------------
   edm::EDGetTokenT<edm::PSimHitContainer> simHitsToken;
   edm::EDGetTokenT<FastTrackerRecHitRefCollection> simHit2RecHitMapToken;
+  TH2D *trackerreco_reta;
 };
 
 FastTrackerRecHitMatcher::FastTrackerRecHitMatcher(const edm::ParameterSet& iConfig)
@@ -79,7 +87,10 @@ FastTrackerRecHitMatcher::FastTrackerRecHitMatcher(const edm::ParameterSet& iCon
   simHitsToken = consumes<edm::PSimHitContainer>(iConfig.getParameter<edm::InputTag>("simHits"));
   simHit2RecHitMapToken =
       consumes<FastTrackerRecHitRefCollection>(iConfig.getParameter<edm::InputTag>("simHit2RecHitMap"));
-
+  
+  edm::Service<TFileService> fs;
+  trackerreco_reta= fs->make<TH2D>("rechits_reta","rEta view of Phase 2 tracker",1000,-5,5,300,-150,150);
+  
   produces<FastTrackerRecHitCollection>();
   produces<FastTrackerRecHitRefCollection>("simHit2RecHitMap");
 }
@@ -115,7 +126,7 @@ void FastTrackerRecHitMatcher::produce(edm::Event& iEvent, const edm::EventSetup
     // get simHit and associated recHit
     const PSimHit& simHit = (*simHits)[simHitCounter];
     const FastTrackerRecHitRef& recHitRef = (*simHit2RecHitMap)[simHitCounter];
-
+    
     // skip simHits w/o associated recHit
     if (recHitRef.isNull())
       continue;
@@ -126,6 +137,12 @@ void FastTrackerRecHitMatcher::produce(edm::Event& iEvent, const edm::EventSetup
     // get subdetector id
     DetId detid = recHit->geographicalId();
     unsigned int subdet = detid.subdetId();
+    
+    //Arnab: add rvseta
+    for(unsigned recHitCounter = 0;recHitCounter < simHits->size();++recHitCounter){
+      trackerreco_reta->Fill(recHit->globalPosition().eta(),recHit->globalPosition().perp());
+      //std::cout<<"eta="<<recHit->globalPosition().eta()<<std::endl;
+    }
 
     // treat pixel hits
     if (subdet <= 2) {
