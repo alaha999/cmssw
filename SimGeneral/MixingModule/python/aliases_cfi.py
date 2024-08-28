@@ -82,7 +82,7 @@ simAPVsaturation = cms.EDAlias(
 )
 
 from Configuration.Eras.Modifier_run3_common_cff import run3_common
-run3_common.toModify(simCastorDigis, mix = None)
+#run3_common.toModify(simCastorDigis, mix = None)
 
 from Configuration.Eras.Modifier_phase2_hgcal_cff import phase2_hgcal
 (~phase2_hgcal).toModify(simHGCalUnsuppressedDigis, mix = None)

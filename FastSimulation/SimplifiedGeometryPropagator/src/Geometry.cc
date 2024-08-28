@@ -101,17 +101,18 @@ void Geometry::update(const edm::EventSetup& iSetup,
     barrelLayers_.push_back(simplifiedGeometryFactory.createBarrelSimplifiedGeometry(trackerBarrelBoundaryCfg_));
     barrelLayers_.back()->setCaloType(SimplifiedGeometry::TRACKERBOUNDARY);
   }
-
+  std::cout<<"Barrel Layer's size = "<<barrelLayers_.size()<<std::endl;
   for (unsigned index = 0; index < barrelLayers_.size(); index++) {
     // set index
     barrelLayers_[index]->setIndex(index);
     // check order
     if (index > 0) {
+      std::cout<<"BarrelLayerIndex = "<<index<<" |  Radius = "<<barrelLayers_[index]->getRadius()<<std::endl;
       if (barrelLayers_[index]->getRadius() <= barrelLayers_[index - 1]->getRadius()) {
         throw cms::Exception("fastsim::Geometry")
-            << "barrel layers must be ordered according to increading radius"
-            << "\nbarrel layer " << index << " has radius smaller than or equal to radius of barrel layer " << index - 1
-            << " (" << barrelLayers_[index]->getRadius() << "/" << barrelLayers_[index - 1]->getRadius() << ")";
+	  << "barrel layers must be ordered according to increading radius"
+	  << "\nbarrel layer " << index << " has radius smaller than or equal to radius of barrel layer " << index - 1
+	  << " (" << barrelLayers_[index]->getRadius() << "/" << barrelLayers_[index - 1]->getRadius() << ")";
       }
     }
   }
@@ -139,15 +140,17 @@ void Geometry::update(const edm::EventSetup& iSetup,
     forwardLayers_.front()->setCaloType(SimplifiedGeometry::TRACKERBOUNDARY);
   }
 
+  std::cout<<"Forward Layer's size ="<<forwardLayers_.size()<<std::endl;
   for (unsigned index = 0; index < forwardLayers_.size(); index++) {
     // set index
     forwardLayers_[index]->setIndex(index);
     // check order
     if (index > 0) {
-      if (forwardLayers_[index]->getZ() <= forwardLayers_[index - 1]->getZ()) {
+      std::cout<< "ForwardLayerIndex = " <<index<<" |   Z Position = "<<forwardLayers_[index]->getZ()<<std::endl;
+      if (forwardLayers_[index]->getZ() < forwardLayers_[index - 1]->getZ()) {
         throw cms::Exception("fastsim::Geometry")
-            << "forward layers must be ordered according to increasing z"
-            << "forward layer " << index << " has z smaller than or equal to z of forward layer " << index - 1;
+	  << "forward layers must be ordered according to increasing z"
+	  << "forward layer " << index << " has z smaller than or equal to z of forward layer " << index - 1;
       }
     }
   }

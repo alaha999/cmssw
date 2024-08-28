@@ -57,6 +57,7 @@ from RecoEgamma.EgammaPhotonProducers.gsfTracksOpenConversionSequence_cff import
 
 
 localrecoTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,muonlocalrecoTask,calolocalrecoTask,castorreco)
+#localrecoTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,muonlocalrecoTask,calolocalrecoTask,castorreco) #ignore local muon reconstruction
 localreco = cms.Sequence(localrecoTask)
 localreco_HcalNZSTask = cms.Task(bunchSpacingProducer,trackerlocalrecoTask,muonlocalrecoTask,calolocalrecoTaskNZS,castorreco)
 localreco_HcalNZS = cms.Sequence(localreco_HcalNZSTask)
@@ -92,7 +93,7 @@ _fastSim_localrecoTask = localrecoTask.copyAndExclude([
     castorreco,
     totemRPLocalReconstructionTask,totemTimingLocalReconstructionTask,diamondSampicLocalReconstructionTask,ctppsDiamondLocalReconstructionTask,
     ctppsLocalTrackLiteProducer,ctppsPixelLocalReconstructionTask,ctppsProtons,
-    trackerlocalrecoTask
+    trackerlocalrecoTask,fastTimingLocalRecoTask
 ])
 fastSim.toReplaceWith(localrecoTask, _fastSim_localrecoTask)
 
@@ -208,7 +209,8 @@ _modulesInReconstruction = list()
 reconstructionTask.visit(cms.ModuleNamesFromGlobalsVisitor(globals(),_modulesInReconstruction))
 logErrorHarvester.includeModules = cms.untracked.vstring(sorted(set(_modulesInReconstruction)))
 
-reconstruction_trackingOnlyTask = cms.Task(localrecoTask,globalreco_trackingTask)
+#reconstruction_trackingOnlyTask = cms.Task(localrecoTask,globalreco_trackingTask)
+reconstruction_trackingOnlyTask = cms.Task(_fastSim_localrecoTask,_fastSim_globalreco_trackingTask)
 #calo parts removed as long as tracking is not running jetCore in phase2
 trackingPhase2PU140.toReplaceWith(reconstruction_trackingOnlyTask,
                                   reconstruction_trackingOnlyTask.copyAndExclude([hgcalLocalRecoTask,castorreco]))

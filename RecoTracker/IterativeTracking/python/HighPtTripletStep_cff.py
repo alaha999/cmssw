@@ -246,6 +246,8 @@ trackingMkFitHighPtTripletStep.toReplaceWith(highPtTripletStepTrackCandidates, m
 ))
 (pp_on_XeXe_2017 | pp_on_AA).toModify(highPtTripletStepTrackCandidatesMkFitConfig, minPt=0.7)
 
+
+
 # For Phase2PU140
 from TrackingTools.TrajectoryCleaning.TrajectoryCleanerBySharedHits_cfi import trajectoryCleanerBySharedHits as _trajectoryCleanerBySharedHits
 highPtTripletStepTrajectoryCleanerBySharedHits = _trajectoryCleanerBySharedHits.clone(
@@ -357,6 +359,8 @@ highPtTripletStepSelector = RecoTracker.FinalTrackSelectors.multiTrackSelector_c
 from Configuration.ProcessModifiers.vectorHits_cff import vectorHits
 vectorHits.toModify(highPtTripletStepSelector.trackSelectors[2], minNumberLayers = 3, minNumber3DLayers = 3, d0_par1 = ( 0.5, 4.0 ), dz_par1 = ( 0.6, 4.0 ))
 
+fastSim.toModify(highPtTripletStepSelector,vertices = "firstStepPrimaryVerticesBeforeMixing")
+
 # Final sequence
 HighPtTripletStepTask = cms.Task(highPtTripletStepClusters,
                                  highPtTripletStepSeedLayers,
@@ -387,5 +391,5 @@ fastSim.toReplaceWith(HighPtTripletStepTask,
                                ,highPtTripletStepSeeds
                                ,highPtTripletStepTrackCandidates
                                ,highPtTripletStepTracks
-                               ,highPtTripletStep
+                               ,highPtTripletStepSelector
                                ) )

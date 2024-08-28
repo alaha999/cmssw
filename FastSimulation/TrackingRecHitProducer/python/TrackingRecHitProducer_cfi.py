@@ -28,36 +28,38 @@ phase2_tracker.toModify(fastTrackerRecHits, plugins = pixelPluginsPhase2)
 
 # Configure strip tracker Gaussian-smearing plugins:
 trackerStripGaussianResolutions={
-    "TIB": {
-        1: cms.double(0.00195),
-        2: cms.double(0.00191),
-        3: cms.double(0.00325),
-        4: cms.double(0.00323)
-    },
+#    "TIB": {
+#        1: cms.double(0.00195),
+#        2: cms.double(0.00191),
+#        3: cms.double(0.00325),
+#        4: cms.double(0.00323),
+#    },
     "TID": {
-        1: cms.double(0.00262),
-        2: cms.double(0.00354),
-        3: cms.double(0.00391)
-    },
-    "TOB": {
-        1: cms.double(0.00461),
-        2: cms.double(0.00458),
-        3: cms.double(0.00488),
-        4: cms.double(0.00491),
-        5: cms.double(0.00293),
-        6: cms.double(0.00299)
-    },
-    "TEC": {
         1: cms.double(0.00262),
         2: cms.double(0.00354),
         3: cms.double(0.00391),
         4: cms.double(0.00346),
         5: cms.double(0.00378),
-        6: cms.double(0.00508),
-        7: cms.double(0.00422),
-        8: cms.double(0.00434),
-        9: cms.double(0.00432),
+    },
+    "TOB": {
+        1: cms.double(0.09),
+        2: cms.double(0.09),
+        3: cms.double(0.09),
+        4: cms.double(0.009),
+        5: cms.double(0.09),
+        6: cms.double(0.9),
     }
+ #   "TEC": {
+ #       1: cms.double(0.00262),
+ #       2: cms.double(0.00354),
+ #       3: cms.double(0.00391),
+ #       4: cms.double(0.00346),
+ #       5: cms.double(0.00378),
+ #       6: cms.double(0.00508),
+ #       7: cms.double(0.00422),
+ #       8: cms.double(0.00434),
+ #       9: cms.double(0.00432),
+ #   }
 }
 
 for subdetId,trackerLayers in trackerStripGaussianResolutions.items():

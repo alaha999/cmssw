@@ -12,6 +12,7 @@ from CommonTools.RecoAlgos.TrackWithVertexRefSelector_cfi import *
 from RecoJets.JetProducers.TracksForJets_cff import *
 from CommonTools.RecoAlgos.sortedPrimaryVertices_cfi import *
 from RecoJets.JetProducers.caloJetsForTrk_cff import *
+from Configuration.Eras.Modifier_fastSim_cff import fastSim
 
 unsortedOfflinePrimaryVertices=offlinePrimaryVertices.clone()
 offlinePrimaryVertices=sortedPrimaryVertices.clone(
@@ -93,3 +94,5 @@ phase2_timing_layer.toReplaceWith(offlinePrimaryVertices4DWithBS, offlinePrimary
 phase2_timing_layer.toModify(offlinePrimaryVertices4D, vertices = "unsortedOfflinePrimaryVertices4D", particles = "trackRefsForJetsBeforeSorting4D")
 phase2_timing_layer.toModify(offlinePrimaryVertices4DWithBS, vertices = "unsortedOfflinePrimaryVertices4D:WithBS", particles = "trackRefsForJetsBeforeSorting4D")
 
+#fastSim.toReplaceWith(_phase2_tktiming_vertexrecoTask, vertexrecoTask)
+#fastSim.toReplaceWith(_phase2_tktiming_layer_vertexrecoTask, vertexrecoTask)

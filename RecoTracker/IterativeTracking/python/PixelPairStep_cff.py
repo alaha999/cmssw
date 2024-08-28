@@ -385,6 +385,8 @@ highBetaStar_2018.toModify(pixelPairStep,qualityCuts = [-0.95,0.0,0.3])
 pp_on_AA.toModify(pixelPairStep, qualityCuts = [0.85, 0.95, 0.98])
 fastSim.toModify(pixelPairStep, vertices = 'firstStepPrimaryVerticesBeforeMixing')
 
+
+
 # For LowPU and Phase2PU140
 import RecoTracker.IterativeTracking.LowPtTripletStep_cff
 import RecoTracker.FinalTrackSelectors.multiTrackSelector_cfi
@@ -498,6 +500,6 @@ fastSim.toReplaceWith(PixelPairStepTask,
                                    ,pixelPairStepSeeds
                                    ,pixelPairStepTrackCandidates
                                    ,pixelPairStepTracks
-                                   ,pixelPairStep 
+                                   ,pixelPairStepSelector 
                                    )
 )

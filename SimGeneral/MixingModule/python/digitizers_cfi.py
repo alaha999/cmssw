@@ -37,10 +37,13 @@ theDigitizers = cms.PSet(
   )
 )
 
+from Configuration.Eras.Modifier_run3_common_cff import run3_common
+(run3_common|fastSim).toModify( theDigitizers, castor = None )
+
 from Configuration.Eras.Modifier_fastSim_cff import fastSim
 fastSim.toModify(theDigitizers,
     # fastsim does not model castor
-    castor = None,
+   # castor = None,
     # fastsim does not digitize pixel and strip hits
     pixel = None,
     strip = None,
@@ -55,7 +58,7 @@ from Configuration.ProcessModifiers.premix_stage2_cff import premix_stage2
 from SimCalorimetry.HGCalSimProducers.hgcalDigitizer_cfi import hgceeDigitizer, hgchebackDigitizer, hgchefrontDigitizer, HGCAL_noise_fC, HGCAL_noise_heback, HFNose_noise_fC, HGCAL_chargeCollectionEfficiencies, HGCAL_ileakParam_toUse, HGCAL_cceParams_toUse, HGCAL_noises
 
 from Configuration.Eras.Modifier_phase2_hgcal_cff import phase2_hgcal
-phase2_hgcal.toModify( theDigitizers,
+(phase2_hgcal).toModify( theDigitizers,
                        hgceeDigitizer = cms.PSet(hgceeDigitizer),
                        hgchebackDigitizer = cms.PSet(hgchebackDigitizer),
                        hgchefrontDigitizer = cms.PSet(hgchefrontDigitizer),

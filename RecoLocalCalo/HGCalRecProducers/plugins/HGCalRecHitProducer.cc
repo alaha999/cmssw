@@ -66,27 +66,40 @@ HGCalRecHitProducer::~HGCalRecHitProducer() {}
 
 void HGCalRecHitProducer::produce(edm::Event& evt, const edm::EventSetup& es) {
   using namespace edm;
-
+  
+  // collection of Uncalibrated rechits to put in the event(first try with EE part)
+  // proxy so that eeUncalibratedRecHitCollection is not empty and getbyToken method works
+  // HGCeeRecHitCollection as proxy of HGCeeUncalibratedRecHitCollection: otherwise gives 'not defined in scope error'
+  //auto eeUncalibRecHits = std::make_unique<HGCeeRecHitCollection>(); 
+  //auto hefUncalibRecHits = std::make_unique<HGChefRecHitCollection>();
+  //auto hebUncalibRecHits = std::make_unique<HGChebRecHitCollection>();
+  // put the collection of uncalibrated recunstructed hits in the event
+  //evt.put(std::move(eeUncalibRecHits), HGCeeUncalibratedRechitCollection);
+  //evt.put(std::move(hefUncalibRecHits), hefRechitCollection_);
+  //evt.put(std::move(hebUncalibRecHits), hebRechitCollection_);
+  
+  
   Handle<HGCeeUncalibratedRecHitCollection> pHGCeeUncalibRecHits;
   Handle<HGChefUncalibratedRecHitCollection> pHGChefUncalibRecHits;
   Handle<HGChebUncalibratedRecHitCollection> pHGChebUncalibRecHits;
   Handle<HGChfnoseUncalibratedRecHitCollection> pHGChfnoseUncalibRecHits;
-
-  const HGCeeUncalibratedRecHitCollection* eeUncalibRecHits = nullptr;
+  
+  const HGCeeUncalibratedRecHitCollection* eeUncalibRecHits = nullptr;//Isn't it redefining again?
   const HGChefUncalibratedRecHitCollection* hefUncalibRecHits = nullptr;
   const HGChebUncalibratedRecHitCollection* hebUncalibRecHits = nullptr;
   const HGChfnoseUncalibratedRecHitCollection* hfnoseUncalibRecHits = nullptr;
-
+  
+  
   // get the HGC uncalib rechit collection
   evt.getByToken(eeUncalibRecHitCollection_, pHGCeeUncalibRecHits);
   eeUncalibRecHits = pHGCeeUncalibRecHits.product();
-
+  
   evt.getByToken(hefUncalibRecHitCollection_, pHGChefUncalibRecHits);
   hefUncalibRecHits = pHGChefUncalibRecHits.product();
-
+  
   evt.getByToken(hebUncalibRecHitCollection_, pHGChebUncalibRecHits);
   hebUncalibRecHits = pHGChebUncalibRecHits.product();
-
+  
   evt.getByToken(hfnoseUncalibRecHitCollection_, pHGChfnoseUncalibRecHits);
   if (pHGChfnoseUncalibRecHits.isValid())
     hfnoseUncalibRecHits = pHGChfnoseUncalibRecHits.product();
@@ -95,7 +108,7 @@ void HGCalRecHitProducer::produce(edm::Event& evt, const edm::EventSetup& es) {
   auto eeRecHits = std::make_unique<HGCeeRecHitCollection>();
   auto hefRecHits = std::make_unique<HGChefRecHitCollection>();
   auto hebRecHits = std::make_unique<HGChebRecHitCollection>();
-
+  
   worker_->set(es);
 
   // loop over uncalibrated rechits to make calibrated ones

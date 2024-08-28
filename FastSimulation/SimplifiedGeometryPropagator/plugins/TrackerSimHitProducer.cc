@@ -8,6 +8,11 @@
 #include "FWCore/Framework/interface/ProducesCollector.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "MagneticField/UniformEngine/interface/UniformMagneticField.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "TH2.h"
+#include <TH1D.h>
+#include <TH2D.h>
 
 // tracking
 #include "TrackingTools/DetLayers/interface/DetLayer.h"
@@ -102,6 +107,7 @@ namespace fastsim {
     std::unique_ptr<edm::PSimHitContainer> simHitContainer_;  //!< The SimHit.
     double minMomentum_;                                      //!< Set the minimal momentum of incoming particle
     bool doHitsFromInboundParticles_;  //!< If not set, incoming particles (negative speed relative to center of detector) don't create a SimHits since reconstruction anyways not possible
+    TH2D *tracker_reta_sim;
   };
 }  // namespace fastsim
 
@@ -113,6 +119,9 @@ fastsim::TrackerSimHitProducer::TrackerSimHitProducer(const std::string& name, c
   // - particle with positive (negative) z and negative (positive) speed in z direction: no SimHits
   // -> this is not neccesary since a track reconstruction is not possible in this case anyways
   doHitsFromInboundParticles_ = cfg.getParameter<bool>("doHitsFromInboundParticles");
+  
+  edm::Service<TFileService> fs;
+  tracker_reta_sim= fs->make<TH2D>("simhits_rz","rz view of Phase 2 tracker",1000,-5,5,300,-150,150);
 }
 
 void fastsim::TrackerSimHitProducer::registerProducts(edm::ProducesCollector producesCollector) const {
