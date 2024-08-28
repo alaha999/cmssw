@@ -113,5 +113,5 @@ phase2_tracker.toModify(simAPVsaturation, mix = None)
 from Configuration.Eras.Modifier_fastSim_cff import fastSim
 (fastSim & ~run3_common).toModify(simCastorDigis, mix = None)
 fastSim.toModify(simSiPixelDigis, mix = None)
-fastSim.toModify(simSiStripDigis, mix = None)
-fastSim.toModify(simAPVsaturation, mix = None)
+(fastSim & ~phase2_tracker).toModify(simSiStripDigis, mix = None)
+(fastSim & ~phase2_tracker).toModify(simAPVsaturation, mix = None)

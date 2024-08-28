@@ -37,20 +37,6 @@ trackingParticles = cms.PSet(
 	HepMCProductLabel = cms.InputTag('generatorSmeared')
 )
 
-from Configuration.Eras.Modifier_fastSim_cff import fastSim
-fastSim.toModify(trackingParticles,
-    # for unknown reasons, fastsim needs this flag on
-    allowDifferentSimHitProcesses = True,
-    # fastsim labels for simhits, simtracks, simvertices
-    simHitCollections = cms.PSet(
-        muon = cms.VInputTag( cms.InputTag('MuonSimHits','MuonDTHits'),
-                              cms.InputTag('MuonSimHits','MuonCSCHits'),
-                              cms.InputTag('MuonSimHits','MuonRPCHits') ),
-        trackerAndPixel = cms.VInputTag( cms.InputTag('fastSimProducer','TrackerHits') )
-    ),
-    simTrackCollection = 'fastSimProducer',
-    simVertexCollection = 'fastSimProducer'
-)
 
 from Configuration.Eras.Modifier_run2_GEM_2017_cff import run2_GEM_2017
 run2_GEM_2017.toModify(trackingParticles, simHitCollections = dict(
@@ -70,4 +56,19 @@ phase2_GE0.toModify( trackingParticles, simHitCollections = dict(
                            trackingParticles.simHitCollections.muon))))
 
 from Configuration.Eras.Modifier_phase2_tracker_cff import phase2_tracker
-phase2_tracker.toModify( trackingParticles, simHitCollections = dict( tracker = []) )
+(phase2_tracker).toModify( trackingParticles, simHitCollections = dict( tracker = []) )
+
+from Configuration.Eras.Modifier_fastSim_cff import fastSim
+fastSim.toModify(trackingParticles,
+    # for unknown reasons, fastsim needs this flag on
+    allowDifferentSimHitProcesses = True,
+    # fastsim labels for simhits, simtracks, simvertices
+    simHitCollections = cms.PSet(
+        muon = cms.VInputTag( cms.InputTag('MuonSimHits','MuonDTHits'),
+                              cms.InputTag('MuonSimHits','MuonCSCHits'),
+                              cms.InputTag('MuonSimHits','MuonRPCHits') ),
+        trackerAndPixel = cms.VInputTag( cms.InputTag('fastSimProducer','TrackerHits') )
+    ),
+    simTrackCollection = 'fastSimProducer',
+    simVertexCollection = 'fastSimProducer'
+)
