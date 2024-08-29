@@ -26,18 +26,21 @@ phase1Pixel.toModify(fastTrackerRecHits, plugins = pixelPluginsPhase1)
 from Configuration.Eras.Modifier_phase2_tracker_cff import phase2_tracker
 phase2_tracker.toModify(fastTrackerRecHits, plugins = pixelPluginsPhase2)
 
-# Configure strip tracker Gaussian-smearing plugins:
+# Configure strip tracker Gaussian-smearing plugins: //phase2: TID=5 TEDD layers(class equivalence), TOB: OuterBarrel
 trackerStripGaussianResolutions={
-    "TIB": {
-        1: cms.double(0.00195),
-        2: cms.double(0.00191),
-        3: cms.double(0.00325),
-        4: cms.double(0.00323)
-    },
+#    "TIB": {
+#        1: cms.double(0.00195),
+#        2: cms.double(0.00191),
+#        3: cms.double(0.00325),
+#        4: cms.double(0.00323)
+#    },
     "TID": {
         1: cms.double(0.00262),
         2: cms.double(0.00354),
-        3: cms.double(0.00391)
+        3: cms.double(0.00391),
+        4: cms.double(0.00293),
+        5: cms.double(0.00299)
+ 
     },
     "TOB": {
         1: cms.double(0.00461),
@@ -47,17 +50,17 @@ trackerStripGaussianResolutions={
         5: cms.double(0.00293),
         6: cms.double(0.00299)
     },
-    "TEC": {
-        1: cms.double(0.00262),
-        2: cms.double(0.00354),
-        3: cms.double(0.00391),
-        4: cms.double(0.00346),
-        5: cms.double(0.00378),
-        6: cms.double(0.00508),
-        7: cms.double(0.00422),
-        8: cms.double(0.00434),
-        9: cms.double(0.00432),
-    }
+#    "TEC": {
+#        1: cms.double(0.00262),
+#        2: cms.double(0.00354),
+#        3: cms.double(0.00391),
+#        4: cms.double(0.00346),
+#        5: cms.double(0.00378),
+#        6: cms.double(0.00508),
+#        7: cms.double(0.00422),
+#        8: cms.double(0.00434),
+#        9: cms.double(0.00432),
+#    }
 }
 
 for subdetId,trackerLayers in trackerStripGaussianResolutions.items():

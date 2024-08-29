@@ -142,8 +142,8 @@ _fastSim_lowPtTripletStepSeeds = FastSimulation.Tracking.TrajectorySeedProducer_
                               layerList = lowPtTripletStepSeedLayers.layerList.value()
                          )
 )
-#new for phase1
-trackingPhase1.toModify(_fastSim_lowPtTripletStepSeeds, seedFinderSelector = dict(
+#new for phase1 (similar for phase2? fastSim tracking as of now mimicking the Run-2 fastsim tracking procedure)
+(trackingPhase1|trackingPhase2PU140).toModify(_fastSim_lowPtTripletStepSeeds, seedFinderSelector = dict(
         pixelTripletGeneratorFactory = None,
         CAHitTripletGeneratorFactory = _hitSetProducerToFactoryPSet(lowPtTripletStepHitTriplets).clone(SeedComparitorPSet = dict(ComponentName = 'none')),
         #new parameters required for phase1 seeding
@@ -158,6 +158,7 @@ trackingPhase1.toModify(_fastSim_lowPtTripletStepSeeds, seedFinderSelector = dic
         layerPairs = lowPtTripletStepHitDoublets.layerPairs.value()
         )
 )
+
 fastSim.toReplaceWith(lowPtTripletStepSeeds,_fastSim_lowPtTripletStepSeeds)
 
 # QUALITY CUTS DURING TRACK BUILDING
@@ -435,5 +436,5 @@ fastSim.toReplaceWith(LowPtTripletStepTask,
                                    ,lowPtTripletStepSeeds
                                    ,lowPtTripletStepTrackCandidates
                                    ,lowPtTripletStepTracks  
-                                   ,lowPtTripletStep   
+                                   ,lowPtTripletStepSelector   
                                    ))
