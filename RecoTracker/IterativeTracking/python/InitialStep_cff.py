@@ -133,25 +133,6 @@ _fastSim_initialStepSeeds.seedFinderSelector.pixelTripletGeneratorFactory.SeedCo
 
 fastSim.toReplaceWith(initialStepSeeds,_fastSim_initialStepSeeds)
 
-#trackingPhase2PU140.toModify(_fastSim_initialStepSeeds, seedFinderSelector = dict(
-#        pixelTripletGeneratorFactory = None,
-#        CAHitQuadrupletGeneratorFactory = _hitSetProducerToFactoryPSet(initialStepHitQuadruplets).clone(SeedComparitorPSet = dict(ComponentName = "none")),
-        #new parameters required for phase2 seeding
-#        BPix = dict(
-#            TTRHBuilder = 'WithoutRefit',
-#            HitProducer = 'TrackingRecHitProducer',
-#            ),
-#        FPix = dict(
-#            TTRHBuilder = 'WithoutRefit',
-#            HitProducer = 'TrackingRecHitProducer',
-#            ),
-#        layerPairs = initialStepHitDoublets.layerPairs.value()
-#        )
-#)
-
-#fastSim.toReplaceWith(initialStepSeeds,_fastSim_initialStepSeeds)
-
-
 # building
 import TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff
 _initialStepTrajectoryFilterBase = TrackingTools.TrajectoryFiltering.TrajectoryFilter_cff.CkfBaseTrajectoryFilter_block.clone(
@@ -460,6 +441,6 @@ _InitialStepTask_fastSim = cms.Task(initialStepTrackingRegions
                            ,firstStepPrimaryVerticesUnsorted
                            ,firstStepPrimaryVerticesBeforeMixing
                            #,initialStepClassifier1,initialStepClassifier2,initialStepClassifier3
-                           ,initialStep
+                           ,initialStepSelector
                            )
 fastSim.toReplaceWith(InitialStepTask, _InitialStepTask_fastSim)
